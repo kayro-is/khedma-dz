@@ -1,0 +1,50 @@
+{
+  "expo": {
+    "name": "Khedma DZ",
+    "slug": "khedma-dz",
+    "scheme": "khedmadz",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "backgroundColor": "#F6FAF8",
+    "ios": {
+      "bundleIdentifier": "dz.khedma.app",
+      "supportsTablet": false
+    },
+    "android": {
+      "package": "dz.khedma.app"
+    },
+    "web": {
+      "output": "single"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-localization",
+        {
+          "supportsRTL": true,
+          "supportedLocales": ["fr", "ar"]
+        }
+      ],
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#F6FAF8"
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Khedma DZ accède à vos photos pour illustrer vos demandes et vos réalisations.",
+          "cameraPermission": false,
+          "microphonePermission": false
+        }
+      ],
+      "expo-font"
+    ],
+    "locales": {
+      "fr": "./src/i18n/native/fr.json",
+      "ar": "./src/i18n/native/ar.json"
+    }
+  }
+}

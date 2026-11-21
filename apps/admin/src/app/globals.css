@@ -1,0 +1,29 @@
+@import 'tailwindcss';
+
+/* Palette Khedma DZ (cahier des charges, section 2) */
+@theme {
+  --color-primary: #087f59;
+  --color-primary-dark: #045c42;
+  --color-primary-light: #e0f7e8;
+  --color-background: #f6faf8;
+  --color-surface: #ffffff;
+  --color-text-primary: #10251b;
+  --color-text-secondary: #557064;
+  --color-border: #e2ebe6;
+  --color-success: #16a34a;
+  --color-warning: #f59e0b;
+  --color-error: #dc2626;
+  --color-accent: #f5b301;
+
+  --font-sans: var(--font-inter), var(--font-noto-arabic), ui-sans-serif, system-ui, sans-serif;
+}
+
+html[dir='rtl'] {
+  --font-sans: var(--font-noto-arabic), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+}

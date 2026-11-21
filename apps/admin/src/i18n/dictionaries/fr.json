@@ -1,0 +1,30 @@
+{
+  "meta": {
+    "title": "Khedma DZ — Administration",
+    "description": "Espace d'administration de la plateforme Khedma DZ."
+  },
+  "app": {
+    "name": "Khedma DZ",
+    "nameAlt": "خدمة ديزاد",
+    "area": "Administration"
+  },
+  "home": {
+    "title": "Espace d'administration",
+    "restricted": "Accès réservé aux administrateurs de la plateforme.",
+    "pending": "La connexion administrateur sera activée avec le ticket KHD-017, une fois Supabase Auth configuré.",
+    "modulesTitle": "Modules prévus",
+    "modules": {
+      "users": "Utilisateurs",
+      "verification": "Vérification des artisans",
+      "moderation": "Modération et signalements",
+      "categories": "Catégories",
+      "geography": "Wilayas et communes",
+      "stats": "Statistiques"
+    }
+  },
+  "language": {
+    "label": "Langue",
+    "fr": "Français",
+    "ar": "العربية"
+  }
+}

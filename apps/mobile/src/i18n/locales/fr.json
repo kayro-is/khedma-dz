@@ -1,0 +1,754 @@
+{
+  "app": {
+    "name": "Khedma DZ",
+    "nameAlt": "خدمة ديزاد",
+    "slogan": "Le bon artisan, juste à côté de chez vous.",
+    "tagline": "Trouvez rapidement un professionnel de confiance près de chez vous."
+  },
+  "language": {
+    "title": "Choisissez votre langue",
+    "subtitle": "Vous pourrez la modifier à tout moment dans les paramètres.",
+    "fr": "Français",
+    "ar": "العربية",
+    "change": "Changer de langue",
+    "current": "Langue actuelle : {{language}}",
+    "continue": "Continuer",
+    "restartTitle": "Redémarrage nécessaire",
+    "restartMessage": "Pour appliquer le sens de lecture de la nouvelle langue, l'application va redémarrer.",
+    "restartConfirm": "Redémarrer",
+    "restartFailed": "Le redémarrage automatique a échoué. Fermez puis rouvrez l'application pour appliquer la langue."
+  },
+  "welcome": {
+    "title": "Bienvenue sur Khedma DZ",
+    "body": "La mise en relation entre particuliers et artisans de proximité, partout en Algérie.",
+    "status": "Version de développement {{version}}",
+    "devTools": "Outils de développement",
+    "openCatalog": "Catalogue des composants",
+    "previewParticulier": "Aperçu : espace particulier",
+    "previewArtisan": "Aperçu : espace artisan"
+  },
+  "common": {
+    "cancel": "Annuler",
+    "close": "Fermer",
+    "confirm": "Confirmer",
+    "retry": "Réessayer",
+    "save": "Enregistrer",
+    "loading": "Chargement…",
+    "error": "Une erreur est survenue.",
+    "optional": "Facultatif",
+    "seeAll": "Tout voir",
+    "search": "Rechercher",
+    "clear": "Effacer",
+    "noResults": "Aucun résultat",
+    "back": "Retour",
+    "soon": "Bientôt"
+  },
+  "currency": {
+    "amount": "{{amount}} DA"
+  },
+  "validation": {
+    "required": "Ce champ est obligatoire.",
+    "phoneInvalid": "Saisissez un numéro mobile algérien valide (05, 06 ou 07).",
+    "amountInvalid": "Saisissez un montant valide en DZD.",
+    "amountTooLarge": "Le montant saisi est trop élevé.",
+    "emailInvalid": "Saisissez une adresse e-mail valide.",
+    "nameInvalid": "Utilisez uniquement des lettres, espaces, tirets ou apostrophes.",
+    "nameTooLong": "60 caractères maximum.",
+    "passwordTooShort": "8 caractères minimum.",
+    "passwordTooLong": "Mot de passe trop long.",
+    "passwordLowercase": "Ajoutez au moins une lettre minuscule (a-z).",
+    "passwordUppercase": "Ajoutez au moins une lettre majuscule (A-Z).",
+    "passwordDigit": "Ajoutez au moins un chiffre.",
+    "passwordsMismatch": "Les mots de passe ne correspondent pas.",
+    "termsRequired": "Vous devez accepter les conditions d'utilisation pour continuer.",
+    "passwordSameAsCurrent": "Le nouveau mot de passe doit être différent de l'actuel.",
+    "deleteConfirmationMismatch": "L'adresse saisie ne correspond pas à celle de votre compte.",
+    "communeInvalid": "Commune invalide.",
+    "businessNameTooShort": "Le nom d'activité doit contenir au moins 2 caractères.",
+    "businessNameTooLong": "Le nom d'activité ne peut pas dépasser 80 caractères.",
+    "businessNameInvalid": "Saisissez un nom d'activité valide (lettres ou chiffres).",
+    "categoryRequired": "Choisissez votre métier principal.",
+    "communeRequired": "Choisissez votre commune de rattachement.",
+    "yearsExperienceInvalid": "Saisissez un nombre d'années entre 0 et 70.",
+    "descriptionTooLong": "La description ne peut pas dépasser 2 000 caractères.",
+    "tradesTooMany": "Vous pouvez choisir 5 métiers secondaires au maximum.",
+    "captionTooLong": "La légende ne peut pas dépasser 100 caractères."
+  },
+  "error": {
+    "title": "Une erreur est survenue",
+    "description": "Veuillez réessayer dans quelques instants.",
+    "networkTitle": "Pas de connexion",
+    "networkDescription": "Vérifiez votre connexion internet puis réessayez."
+  },
+  "rating": {
+    "noReviews": "Aucun avis pour le moment",
+    "reviews_one": "{{count}} avis",
+    "reviews_many": "{{count}} avis",
+    "reviews_other": "{{count}} avis",
+    "summaryA11y": "Note moyenne {{value}} sur 5",
+    "star_one": "{{count}} étoile",
+    "star_many": "{{count}} étoiles",
+    "star_other": "{{count}} étoiles"
+  },
+  "badge": {
+    "verified": "Vérifié",
+    "new": "Nouveau"
+  },
+  "artisan": {
+    "favoriteAdd": "Ajouter aux favoris",
+    "favoriteRemove": "Retirer des favoris",
+    "distance": "≈ {{distance}} km",
+    "distanceNear": "Moins de 1 km"
+  },
+  "service": {
+    "fromPrice": "À partir de {{amount}}",
+    "priceOnQuote": "Prix sur devis"
+  },
+  "request": {
+    "budget": "Budget : {{amount}}",
+    "noBudget": "Budget non précisé",
+    "noProposals": "Aucune proposition",
+    "proposals_one": "{{count}} proposition",
+    "proposals_many": "{{count}} propositions",
+    "proposals_other": "{{count}} propositions"
+  },
+  "requestStatus": {
+    "OPEN": "Ouverte",
+    "ASSIGNED": "Attribuée",
+    "IN_PROGRESS": "En cours",
+    "COMPLETED": "Terminée",
+    "CANCELLED": "Annulée",
+    "DISPUTED": "En litige"
+  },
+  "proposalStatus": {
+    "PENDING": "En attente",
+    "ACCEPTED": "Acceptée",
+    "REJECTED": "Refusée",
+    "WITHDRAWN": "Retirée"
+  },
+  "urgency": {
+    "LOW": "Pas pressé",
+    "NORMAL": "Normal",
+    "URGENT": "Urgent"
+  },
+  "proposal": {
+    "delay_one": "Délai : {{count}} jour",
+    "delay_many": "Délai : {{count}} jours",
+    "delay_other": "Délai : {{count}} jours",
+    "accept": "Accepter",
+    "reject": "Refuser",
+    "discuss": "Discuter",
+    "viewProfile": "Voir le profil"
+  },
+  "message": {
+    "sending": "Envoi…",
+    "sent": "Envoyé",
+    "read": "Lu",
+    "failed": "Échec de l'envoi",
+    "retry": "Réessayer l'envoi",
+    "image": "Photo"
+  },
+  "time": {
+    "yesterday": "Hier"
+  },
+  "notification": {
+    "unread": "Non lue"
+  },
+  "imageUploader": {
+    "add": "Ajouter des photos",
+    "remove": "Retirer la photo {{index}}",
+    "count": "{{count}} / {{max}} photos",
+    "limitReached": "Vous avez atteint le maximum de {{max}} photos.",
+    "tooLarge": "Une photo dépasse la taille maximale de {{size}} Mo.",
+    "invalidType": "Format non pris en charge. Utilisez JPEG, PNG, WebP ou HEIC.",
+    "pickerError": "Impossible d'ouvrir la galerie.",
+    "photoA11y": "Photo {{index}}"
+  },
+  "location": {
+    "wilaya": "Wilaya",
+    "commune": "Commune",
+    "selectWilaya": "Choisir une wilaya",
+    "selectCommune": "Choisir une commune",
+    "selectWilayaFirst": "Choisissez d'abord une wilaya",
+    "searchWilaya": "Nom ou numéro de la wilaya",
+    "searchCommune": "Nom de la commune, en français ou en arabe"
+  },
+  "select": {
+    "placeholder": "Sélectionner",
+    "searchPlaceholder": "Rechercher…"
+  },
+  "password": {
+    "show": "Afficher le mot de passe",
+    "hide": "Masquer le mot de passe"
+  },
+  "toast": {
+    "dismiss": "Fermer la notification"
+  },
+  "nav": {
+    "home": "Accueil",
+    "search": "Rechercher",
+    "myRequests": "Mes demandes",
+    "messages": "Messages",
+    "profile": "Profil",
+    "dashboard": "Tableau de bord",
+    "requests": "Demandes",
+    "proposals": "Propositions"
+  },
+  "comingSoon": {
+    "title": "Bientôt disponible",
+    "description": "Cette section sera activée dans une prochaine étape du développement."
+  },
+  "profile": {
+    "settings": "Paramètres",
+    "language": "Langue",
+    "account": "Compte",
+    "signedInAs": "Connecté avec {{email}}",
+    "title": "Mon profil",
+    "personalInfo": "Informations personnelles",
+    "edit": "Modifier mes informations",
+    "email": "Adresse e-mail",
+    "phone": "Téléphone",
+    "location": "Localisation",
+    "notProvided": "Non renseigné",
+    "phoneUnverified": "Non vérifié",
+    "phoneVerificationSoon": "La vérification par SMS sera disponible prochainement.",
+    "preferences": "Préférences",
+    "security": "Sécurité",
+    "changePassword": "Changer le mot de passe",
+    "signOutEverywhere": "Déconnecter tous les appareils",
+    "signOutEverywhereTitle": "Déconnecter tous les appareils ?",
+    "signOutEverywhereBody": "Toutes vos sessions, y compris celle de ce téléphone, seront fermées. Utile en cas de perte ou de vol d’un appareil.",
+    "signOutEverywhereDone": "Toutes vos sessions ont été fermées.",
+    "accountSection": "Compte",
+    "deleteAccount": "Supprimer mon compte",
+    "loadError": "Impossible de charger votre profil.",
+    "version": "Version {{version}}",
+    "photo": {
+      "a11y": "Photo de profil. Appuyez pour la modifier.",
+      "title": "Photo de profil",
+      "choose": "Choisir dans la galerie",
+      "remove": "Supprimer la photo",
+      "updated": "Photo mise à jour.",
+      "removed": "Photo supprimée.",
+      "uploading": "Envoi de la photo…"
+    },
+    "editScreen": {
+      "title": "Modifier mes informations",
+      "subtitle": "Ces informations permettent aux artisans de vous identifier lors de vos échanges.",
+      "save": "Enregistrer",
+      "saved": "Profil mis à jour.",
+      "phoneChangeNote": "Modifier votre numéro annule sa vérification.",
+      "locationTitle": "Ma localisation",
+      "locationHelper": "Votre commune n'est jamais affichée publiquement. Elle sert à vous proposer des artisans proches.",
+      "unsavedTitle": "Abandonner les modifications ?",
+      "unsavedBody": "Vos modifications non enregistrées seront perdues.",
+      "discard": "Abandonner"
+    },
+    "passwordScreen": {
+      "title": "Changer le mot de passe",
+      "subtitle": "Par sécurité, saisissez d'abord votre mot de passe actuel.",
+      "current": "Mot de passe actuel",
+      "submit": "Mettre à jour le mot de passe",
+      "success": "Mot de passe modifié."
+    },
+    "deleteScreen": {
+      "title": "Supprimer mon compte",
+      "intro": "Cette action est définitive et ne peut pas être annulée.",
+      "deletedTitle": "Seront supprimés",
+      "deleted1": "Votre profil, votre photo et vos coordonnées",
+      "deleted2": "Vos demandes, vos favoris et vos notifications",
+      "deleted3": "Votre profil artisan et vos réalisations, le cas échéant",
+      "keptTitle": "Seront conservés, de façon anonyme",
+      "kept1": "Les avis et prestations partagés avec d'autres utilisateurs",
+      "kept2": "Les messages déjà envoyés",
+      "activeJobsNote": "La suppression est impossible tant qu'une prestation est en cours.",
+      "confirmLabel": "Pour confirmer, saisissez votre adresse e-mail",
+      "submit": "Supprimer définitivement mon compte",
+      "done": "Votre compte a été supprimé."
+    },
+    "errors": {
+      "phoneTaken": "Ce numéro ne peut pas être utilisé.",
+      "activeJobs": "Terminez vos prestations en cours avant de supprimer votre compte.",
+      "wrongCurrentPassword": "Mot de passe actuel incorrect.",
+      "photoFailed": "Impossible d'envoyer la photo. Réessayez.",
+      "saveFailed": "Impossible d'enregistrer vos modifications. Réessayez.",
+      "network": "Connexion impossible. Vérifiez votre accès à internet.",
+      "sessionExpired": "Votre session a expiré. Veuillez vous reconnecter."
+    }
+  },
+  "dev": {
+    "title": "Catalogue des composants",
+    "subtitle": "Écran de développement, absent des builds de production. Les données affichées sont fictives.",
+    "sections": {
+      "typography": "Typographie",
+      "buttons": "Boutons",
+      "inputs": "Champs de saisie",
+      "selection": "Sélection",
+      "badges": "Badges et avatars",
+      "ratings": "Notes",
+      "cards": "Cartes",
+      "messages": "Messages",
+      "notifications": "Notifications",
+      "feedback": "États (vide, erreur, chargement)",
+      "overlays": "Fenêtres et notifications temporaires",
+      "location": "Localisation",
+      "images": "Photos",
+      "categories": "Catégories"
+    },
+    "longText": "Exemple de texte long pour vérifier le retour à la ligne et la troncature dans les cartes, les boutons et les listes de l'application.",
+    "primary": "Principal",
+    "secondary": "Secondaire",
+    "ghost": "Discret",
+    "danger": "Supprimer",
+    "disabled": "Désactivé",
+    "fullName": "Nom complet",
+    "phone": "Téléphone",
+    "phoneHelper": "Un professionnel pourra vous joindre sur ce numéro.",
+    "password": "Mot de passe",
+    "description": "Description",
+    "searchPlaceholder": "Plombier, électricien…",
+    "terms": "J'accepte les conditions d'utilisation",
+    "notifications": "Recevoir les notifications de nouvelles propositions",
+    "urgencyLabel": "Degré d'urgence",
+    "tradeLabel": "Métier",
+    "openModal": "Ouvrir la fenêtre",
+    "openSheet": "Ouvrir le panneau",
+    "toastSuccess": "Afficher un succès",
+    "toastError": "Afficher une erreur",
+    "modalTitle": "Retirer cette proposition ?",
+    "modalBody": "L'artisan ne pourra plus la modifier. Cette action est définitive.",
+    "sheetTitle": "Trier les résultats",
+    "toastSuccessMessage": "Modifications enregistrées.",
+    "toastErrorMessage": "Impossible d'enregistrer. Réessayez.",
+    "emptyTitle": "Aucune demande pour l'instant",
+    "emptyDescription": "Publiez votre première demande pour recevoir des propositions d'artisans proches.",
+    "emptyAction": "Publier une demande",
+    "categoryLabel": "Choisissez un métier",
+    "rateLabel": "Votre note"
+  },
+  "auth": {
+    "languageSwitchA11y": "Changer la langue de l'application",
+    "welcome": {
+      "headline": "Le bon artisan, juste à côté de chez vous.",
+      "subtitle": "Plombiers, électriciens, peintres… comparez les propositions et échangez en toute sécurité.",
+      "valueNearby": "Des professionnels dans votre commune",
+      "valueQuotes": "Des devis gratuits et sans engagement",
+      "valueSafe": "Une messagerie sécurisée",
+      "createAccount": "Créer un compte",
+      "signIn": "J'ai déjà un compte",
+      "legal": "En continuant, vous acceptez nos conditions d'utilisation."
+    },
+    "fields": {
+      "firstName": "Prénom",
+      "lastName": "Nom",
+      "email": "Adresse e-mail",
+      "emailPlaceholder": "nom@exemple.com",
+      "phone": "Téléphone mobile",
+      "phonePlaceholder": "05 55 12 34 56",
+      "phoneHelper": "Format : 05, 06 ou 07 suivi de 8 chiffres. La vérification par SMS sera disponible prochainement.",
+      "password": "Mot de passe",
+      "newPassword": "Nouveau mot de passe",
+      "confirmPassword": "Confirmer le mot de passe"
+    },
+    "signUp": {
+      "title": "Créer votre compte",
+      "subtitle": "Quelques informations pour commencer.",
+      "submit": "Créer mon compte",
+      "acceptTerms": "J'accepte les conditions d'utilisation et la politique de confidentialité",
+      "readTerms": "Lire les conditions",
+      "haveAccount": "Déjà inscrit ?",
+      "signInLink": "Se connecter"
+    },
+    "signIn": {
+      "title": "Bon retour parmi nous",
+      "subtitle": "Connectez-vous pour retrouver vos demandes et vos échanges.",
+      "submit": "Se connecter",
+      "forgot": "Mot de passe oublié ?",
+      "noAccount": "Pas encore de compte ?",
+      "signUpLink": "Créer un compte",
+      "resendConfirmation": "Renvoyer l'e-mail de confirmation",
+      "sessionExpired": "Votre session a expiré. Veuillez vous reconnecter."
+    },
+    "forgot": {
+      "title": "Mot de passe oublié",
+      "subtitle": "Indiquez votre adresse e-mail : nous vous enverrons un lien pour choisir un nouveau mot de passe.",
+      "submit": "Envoyer le lien"
+    },
+    "checkEmail": {
+      "titleSignUp": "Confirmez votre adresse e-mail",
+      "titleReset": "Vérifiez votre boîte e-mail",
+      "body": "Si cette adresse peut recevoir un lien, un e-mail vient d’être envoyé à {{email}}. Ouvrez-le depuis ce téléphone pour continuer.",
+      "hint": "Pensez à vérifier vos courriers indésirables.",
+      "resend": "Renvoyer l'e-mail",
+      "resendIn": "Renvoyer dans {{seconds}} s",
+      "resent": "E-mail renvoyé.",
+      "backToSignIn": "Retour à la connexion"
+    },
+    "callback": {
+      "verifying": "Vérification du lien…",
+      "confirmed": "Adresse e-mail confirmée. Bienvenue sur Khedma DZ !",
+      "failedTitle": "Lien invalide ou expiré",
+      "failedBody": "Ce lien n'est plus valable ou a été ouvert sur un autre appareil. Si vous avez déjà confirmé votre adresse, connectez-vous simplement.",
+      "goToSignIn": "Aller à la connexion"
+    },
+    "reset": {
+      "title": "Nouveau mot de passe",
+      "subtitle": "Choisissez un mot de passe robuste que vous n'utilisez nulle part ailleurs.",
+      "submit": "Enregistrer le mot de passe",
+      "success": "Mot de passe modifié."
+    },
+    "strength": {
+      "label": "Robustesse : {{level}}",
+      "levels": {
+        "1": "faible",
+        "2": "moyenne",
+        "3": "bonne",
+        "4": "excellente"
+      },
+      "rules": {
+        "length": "8 caractères minimum",
+        "lowercase": "Une minuscule (a-z)",
+        "uppercase": "Une majuscule (A-Z)",
+        "digit": "Un chiffre"
+      }
+    },
+    "signOut": {
+      "action": "Se déconnecter",
+      "confirmTitle": "Se déconnecter ?",
+      "confirmBody": "Vous devrez saisir à nouveau vos identifiants pour accéder à votre compte.",
+      "success": "Vous êtes déconnecté."
+    },
+    "legal": {
+      "title": "Conditions d'utilisation",
+      "pending": "Les conditions d'utilisation et la politique de confidentialité de Khedma DZ sont en cours de rédaction. Elles seront publiées ici avant l'ouverture de la phase pilote."
+    },
+    "errors": {
+      "invalidCredentials": "Adresse e-mail ou mot de passe incorrect.",
+      "emailNotConfirmed": "Votre adresse e-mail n'est pas encore confirmée. Ouvrez le lien reçu par e-mail.",
+      "emailTaken": "Impossible de créer un compte avec cette adresse.",
+      "weakPassword": "Ce mot de passe est trop faible. Suivez les règles indiquées.",
+      "samePassword": "Le nouveau mot de passe doit être différent de l'ancien.",
+      "emailRateLimit": "Trop d'e-mails envoyés. Patientez quelques minutes avant de réessayer.",
+      "tooManyRequests": "Trop de tentatives. Patientez quelques instants.",
+      "linkExpired": "Ce lien n'est plus valable. Demandez-en un nouveau.",
+      "sessionExpired": "Votre session a expiré. Veuillez vous reconnecter.",
+      "emailInvalid": "Cette adresse e-mail n'est pas acceptée.",
+      "emailNotAuthorized": "L'envoi d'e-mails est limité pendant la phase de test : cette adresse n'est pas autorisée.",
+      "signupDisabled": "Les inscriptions sont momentanément fermées.",
+      "accountSuspended": "Ce compte est suspendu. Contactez le support.",
+      "reauthenticationNeeded": "Pour des raisons de sécurité, reconnectez-vous avant de modifier votre mot de passe.",
+      "network": "Connexion impossible. Vérifiez votre accès à internet.",
+      "unknown": "Une erreur inattendue est survenue. Réessayez."
+    }
+  },
+  "space": {
+    "names": {
+      "particulier": "Particulier",
+      "artisan": "Artisan"
+    },
+    "upcomingTitle": "Bientôt sur Khedma DZ",
+    "gate": {
+      "verifying": "Ouverture de votre espace…",
+      "unverifiedTitle": "Impossible de vérifier votre espace Artisan",
+      "unverifiedBody": "Vérifiez votre connexion. Votre espace Artisan s'ouvrira dès que votre compte aura pu être vérifié.",
+      "continueParticulier": "Continuer dans l'espace Particulier"
+    },
+    "switcher": {
+      "title": "Mon espace",
+      "subtitle": "Un seul compte, deux espaces. Changez à tout moment, sans vous déconnecter.",
+      "switchHint": "Ouvre cet espace",
+      "activateHint": "Ouvre le parcours d'activation de l'espace Artisan",
+      "current": {
+        "particulier": "Vous êtes dans votre espace Particulier : trouver un artisan et suivre vos demandes.",
+        "artisan": "Vous êtes dans votre espace Artisan : gérer votre activité et vos clients."
+      },
+      "activate": "Activer mon espace Artisan"
+    },
+    "switchButton": {
+      "becomeArtisan": "Devenir artisan",
+      "a11y": {
+        "particulier": "Passer à l'espace Particulier",
+        "artisan": "Passer à l'espace Artisan"
+      }
+    },
+    "welcome": {
+      "screenTitle": "Espace Artisan",
+      "title": "Proposez vos services sur Khedma DZ",
+      "subtitle": "Activez votre espace Artisan en quelques instants, avec le compte que vous utilisez déjà.",
+      "benefits": {
+        "sameAccount": {
+          "title": "Le même compte",
+          "body": "Mêmes identifiants, même profil : aucun nouveau compte à créer."
+        },
+        "switchAnytime": {
+          "title": "Deux espaces, un geste",
+          "body": "Passez de Particulier à Artisan depuis votre profil, sans vous déconnecter."
+        },
+        "private": {
+          "title": "Invisible jusqu'à publication",
+          "body": "Votre profil artisan n'est pas visible des clients tant que vous ne l'avez pas complété et publié."
+        }
+      },
+      "upcomingTitle": "Arrivent prochainement dans votre espace",
+      "upcoming": {
+        "requests": "Demandes de clients proches de chez vous et envoi de devis",
+        "verification": "Badge « Artisan vérifié »"
+      },
+      "start": "Activer mon espace Artisan",
+      "later": "Plus tard"
+    },
+    "setup": {
+      "title": "Activer mon espace Artisan",
+      "subtitle": "Trois informations suffisent pour commencer. Vous pourrez les modifier plus tard.",
+      "businessName": "Nom d'activité",
+      "businessNamePlaceholder": "Ex. : Karim Plomberie",
+      "businessNameHelper": "Le nom sous lequel les clients vous connaîtront.",
+      "category": "Métier principal",
+      "baseCommune": "Commune de rattachement",
+      "baseCommuneHelper": "La commune où vous exercez principalement. Votre adresse personnelle n'est jamais demandée.",
+      "yearsExperience": "Années d'expérience",
+      "privacyNote": "Votre profil artisan sera créé non publié : aucun client ne le verra avant que vous l'ayez complété et publié.",
+      "submit": "Activer mon espace Artisan",
+      "success": "Votre espace Artisan est activé."
+    },
+    "errors": {
+      "network": "Connexion impossible. Vérifiez votre réseau puis réessayez.",
+      "sessionExpired": "Votre session a expiré. Reconnectez-vous pour continuer.",
+      "notAllowed": "Votre compte ne permet pas d'activer l'espace Artisan pour le moment. Contactez le support.",
+      "invalidSelection": "Le métier ou la commune choisis ne sont plus disponibles. Faites un autre choix.",
+      "activationFailed": "L'activation n'a pas pu aboutir. Réessayez dans quelques instants."
+    },
+    "particulier": {
+      "greeting": "Bonjour {{name}}",
+      "heroTitle": "Trouvez le bon artisan, près de chez vous",
+      "heroBody": "Plombiers, électriciens, peintres… Khedma DZ vous mettra bientôt en relation avec des artisans de votre commune.",
+      "upcoming": {
+        "search": {
+          "title": "Rechercher un artisan",
+          "body": "Par métier et par commune, dans toute l'Algérie."
+        },
+        "request": {
+          "title": "Publier une demande",
+          "body": "Décrivez votre besoin, photos à l'appui."
+        },
+        "quotes": {
+          "title": "Recevoir des devis",
+          "body": "Comparez les propositions des artisans."
+        },
+        "messages": {
+          "title": "Échanger avec l'artisan",
+          "body": "Messagerie intégrée et sécurisée."
+        }
+      },
+      "artisanCard": {
+        "title": "Vous êtes artisan ?",
+        "body": "Activez votre espace Artisan avec ce même compte.",
+        "action": "Découvrir",
+        "switchTitle": "Votre espace Artisan",
+        "switchBody": "Gérez votre activité depuis votre espace Artisan.",
+        "switchAction": "Ouvrir"
+      }
+    },
+    "artisan": {
+      "loadError": "Impossible de charger votre profil artisan.",
+      "nextSteps": "Prochaines étapes",
+      "published": "Publié",
+      "notPublished": "Non publié",
+      "notPublishedBody": "Votre profil n'est pas encore visible des clients. Complétez-le puis publiez-le depuis l'onglet « Profil ».",
+      "verification": {
+        "UNVERIFIED": "Non vérifié",
+        "PENDING": "Vérification en cours",
+        "VERIFIED": "Artisan vérifié",
+        "REJECTED": "Vérification refusée"
+      },
+      "experience_one": "{{count}} an d'expérience",
+      "experience_many": "{{count}} ans d'expérience",
+      "experience_other": "{{count}} ans d'expérience",
+      "steps": {
+        "verification": {
+          "title": "Faire vérifier votre identité",
+          "body": "Obtenez le badge « Artisan vérifié »."
+        },
+        "requests": {
+          "title": "Recevoir des demandes",
+          "body": "Consultez les demandes proches et envoyez vos devis."
+        }
+      }
+    },
+    "empty": {
+      "particulier": {
+        "search": {
+          "title": "La recherche arrive bientôt",
+          "body": "Vous pourrez bientôt trouver des artisans par métier et par commune."
+        },
+        "requests": {
+          "title": "Aucune demande pour le moment",
+          "body": "La publication de demandes de service arrive prochainement. Vos demandes apparaîtront ici."
+        },
+        "messages": {
+          "title": "Aucun message",
+          "body": "Vos conversations avec les artisans apparaîtront ici dès l'ouverture de la messagerie."
+        }
+      },
+      "artisan": {
+        "requests": {
+          "title": "Aucune demande disponible",
+          "body": "Les demandes des clients de votre zone apparaîtront ici dès l'ouverture de cette fonctionnalité."
+        },
+        "proposals": {
+          "title": "Aucun devis envoyé",
+          "body": "Les devis que vous enverrez aux clients apparaîtront ici."
+        },
+        "messages": {
+          "title": "Aucun message",
+          "body": "Vos conversations avec les clients apparaîtront ici dès l'ouverture de la messagerie."
+        }
+      }
+    }
+  },
+  "pro": {
+    "saved": "Modifications enregistrées.",
+    "errors": {
+      "publishDescription": "Pour publier, ajoutez une description d’au moins 50 caractères.",
+      "publishZone": "Pour publier, ajoutez au moins une zone d’intervention.",
+      "lastZone": "Un profil publié doit garder au moins une zone d’intervention.",
+      "zonesLimit": "Vous pouvez choisir 50 communes au maximum.",
+      "servicesLimit": "Vous pouvez choisir 5 métiers secondaires au maximum.",
+      "primaryService": "Le métier principal ne peut pas être retiré.",
+      "portfolioLimit": "Votre galerie est complète (20 réalisations au maximum).",
+      "photoFailed": "La photo n’a pas pu être préparée ou envoyée. Réessayez avec une autre image.",
+      "network": "Connexion impossible. Vérifiez votre réseau puis réessayez.",
+      "sessionExpired": "Votre session a expiré. Reconnectez-vous pour continuer.",
+      "saveFailed": "L’enregistrement n’a pas abouti. Réessayez dans quelques instants."
+    },
+    "availability": {
+      "AVAILABLE": "Disponible",
+      "BUSY": "Occupé",
+      "UNAVAILABLE": "Indisponible"
+    },
+    "availabilityHint": {
+      "AVAILABLE": "Vous acceptez de nouveaux chantiers.",
+      "BUSY": "Vous répondez, avec un délai plus long.",
+      "UNAVAILABLE": "Vous ne prenez pas de nouveau chantier pour le moment."
+    },
+    "completion": {
+      "description": "Description d’au moins {{min}} caractères",
+      "zones": "Au moins une zone d’intervention",
+      "photo": "Photo professionnelle",
+      "portfolio": "Au moins une réalisation en photo",
+      "experience": "Années d’expérience",
+      "required": "Obligatoire",
+      "recommended": "Conseillé"
+    },
+    "publication": {
+      "title": "Publication",
+      "draft": "Brouillon",
+      "draftBody": "Votre profil est invisible des clients. Préparez-le, puis publiez-le quand il est prêt.",
+      "liveBody": "Votre profil est visible des clients connectés.",
+      "progress": "Profil complété",
+      "progressA11y": "Profil complété à {{percent}} %",
+      "publish": "Publier mon profil",
+      "unpublish": "Retirer de la publication",
+      "unpublishTitle": "Retirer votre profil de la publication ?",
+      "unpublishBody": "Les clients ne le verront plus. Vos informations, zones et réalisations sont conservées.",
+      "requirementsHint": "Complétez les éléments obligatoires pour pouvoir publier.",
+      "published": "Votre profil est publié.",
+      "unpublished": "Votre profil n’est plus visible des clients."
+    },
+    "hub": {
+      "title": "Mon profil pro",
+      "manage": "Gérer mon profil professionnel",
+      "preview": "Aperçu client",
+      "previewHint": "Voir votre profil comme un client.",
+      "verificationNote": "La vérification d’identité « Artisan vérifié » sera proposée prochainement. Elle est attribuée uniquement par l’équipe Khedma DZ.",
+      "sections": "Mon activité",
+      "info": "Informations professionnelles",
+      "infoEmpty": "Ajoutez une description de votre activité",
+      "trades": "Métiers",
+      "zones": "Zones d’intervention",
+      "gallery": "Réalisations",
+      "account": "Compte",
+      "photo": "Photo professionnelle",
+      "photoHint": "C’est votre photo de profil : modifiez-la dans Compte et paramètres.",
+      "settings": "Compte et paramètres",
+      "tradesValue_one": "Principal + {{count}} secondaire",
+      "tradesValue_many": "Principal + {{count}} secondaires",
+      "tradesValue_other": "Principal + {{count}} secondaires",
+      "tradesValue_zero": "Principal uniquement"
+    },
+    "edit": {
+      "title": "Informations professionnelles",
+      "description": "Description de votre activité",
+      "descriptionPlaceholder": "Vos spécialités, vos services, votre façon de travailler…",
+      "descriptionReady": "{{count}} caractères — suffisant pour publier",
+      "descriptionMin": "{{count}} / {{min}} caractères minimum pour publier",
+      "availability": "Disponibilité",
+      "baseCommuneHelper": "La commune où vous exercez principalement. Elle est ajoutée à vos zones d’intervention.",
+      "phone": "Téléphone professionnel",
+      "phonePrivacy": "Votre numéro n’est jamais affiché sur votre profil public. Il pourra être communiqué à un client après acceptation d’un devis (fonctionnalité à venir)."
+    },
+    "trades": {
+      "title": "Mes métiers",
+      "subtitle": "Votre métier principal apparaît en premier sur votre profil. Ajoutez des métiers secondaires si vous les exercez aussi.",
+      "secondary": "Métiers secondaires",
+      "secondaryCount": "{{count}} / {{max}} sélectionnés"
+    },
+    "zones": {
+      "title": "Zones d’intervention",
+      "subtitle": "Choisissez les communes où vous acceptez d’intervenir. Les clients de ces communes pourront vous trouver.",
+      "count": "{{count}} / {{max}} communes",
+      "add": "Ajouter des communes",
+      "emptyTitle": "Aucune zone d’intervention",
+      "emptyBody": "Ajoutez au moins une commune pour pouvoir publier votre profil.",
+      "removeA11y": "Retirer {{name}}",
+      "baseCommuneNote": "Votre commune de rattachement n’est plus dans vos zones. Elle sera ajoutée de nouveau si vous la modifiez dans vos informations.",
+      "pickerTitle": "Ajouter des communes",
+      "done": "Terminé"
+    },
+    "gallery": {
+      "title": "Mes réalisations",
+      "subtitle": "Montrez vos chantiers terminés : une photo par réalisation, avec une légende si vous le souhaitez.",
+      "count": "{{count}} / {{max}} réalisations",
+      "add": "Ajouter des photos",
+      "emptyTitle": "Aucune réalisation pour le moment",
+      "emptyBody": "Des photos de vos chantiers rassurent les clients et augmentent vos chances d’être choisi.",
+      "itemA11y": "Réalisation {{index}} : {{caption}}",
+      "itemA11yNoCaption": "Réalisation {{index}}, sans légende",
+      "captionPlaceholder": "Légende (facultatif)",
+      "discardOne": "Retirer cette photo",
+      "uploading": "Envoi {{done}} / {{total}}…",
+      "itemTitle": "Réalisation {{index}}",
+      "caption": "Légende",
+      "moveBefore": "Avant",
+      "moveAfter": "Après",
+      "delete": "Supprimer",
+      "deleteTitle": "Supprimer cette réalisation ?",
+      "deleteBody": "La photo sera retirée de votre profil. Cette action est définitive.",
+      "deleted": "Réalisation supprimée.",
+      "previewTitle_one": "{{count}} photo à publier",
+      "previewTitle_many": "{{count}} photos à publier",
+      "previewTitle_other": "{{count}} photos à publier",
+      "publishPhotos_one": "Publier la photo",
+      "publishPhotos_many": "Publier les {{count}} photos",
+      "publishPhotos_other": "Publier les {{count}} photos",
+      "added_one": "Réalisation ajoutée.",
+      "added_many": "{{count}} réalisations ajoutées.",
+      "added_other": "{{count}} réalisations ajoutées.",
+      "partialFailure_one": "{{count}} photo n’a pas pu être envoyée.",
+      "partialFailure_many": "{{count}} photos n’ont pas pu être envoyées.",
+      "partialFailure_other": "{{count}} photos n’ont pas pu être envoyées."
+    },
+    "preview": {
+      "title": "Aperçu client",
+      "liveNote": "Voici votre profil tel que le voient les clients connectés.",
+      "draftNote": "Votre profil est un brouillon : aucun client ne le voit pour le moment.",
+      "noReviews": "Pas encore d’avis",
+      "about": "À propos",
+      "noDescription": "Aucune description pour le moment.",
+      "otherTrades": "Autres métiers",
+      "zones": "Zones d’intervention",
+      "gallery": "Réalisations",
+      "contactNote": "Votre téléphone et vos informations personnelles ne sont jamais affichés publiquement."
+    }
+  }
+}

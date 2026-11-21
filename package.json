@@ -1,0 +1,32 @@
+{
+  "name": "khedma-dz",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Khedma DZ — marketplace de services de proximité pour l'Algérie",
+  "packageManager": "pnpm@12.3.4",
+  "engines": {
+    "node": ">=20.19.4",
+    "pnpm": ">=10"
+  },
+  "scripts": {
+    "dev:mobile": "pnpm --filter @khedma/mobile start",
+    "dev:admin": "pnpm --filter @khedma/admin dev",
+    "build:admin": "pnpm --filter @khedma/admin build",
+    "lint": "pnpm -r --if-present lint",
+    "typecheck": "pnpm -r --if-present typecheck",
+    "test": "pnpm -r --if-present test",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm test:scripts && pnpm geo:check",
+    "cloud": "node scripts/supabase-cloud.mjs",
+    "test:scripts": "node --test \"scripts/**/*.test.mjs\"",
+    "geo:build": "node scripts/geo/build-geo.mjs --source",
+    "geo:check": "node scripts/geo/build-geo.mjs --check",
+    "geo:crosscheck": "node scripts/geo/crosscheck-official.mjs",
+    "geo:test-local": "node scripts/geo/test-migration-local.mjs"
+  },
+  "devDependencies": {
+    "prettier": "3.10.1",
+    "typescript": "~6.0.3"
+  }
+}

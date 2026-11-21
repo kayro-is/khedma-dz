@@ -1,0 +1,21 @@
+{
+  "name": "@khedma/integration-tests",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Tests d'intégration contre le projet Supabase Cloud de test (Auth + API REST + RLS)",
+  "type": "module",
+  "scripts": {
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@khedma/config": "workspace:*",
+    "@khedma/types": "workspace:*",
+    "@khedma/validation": "workspace:*",
+    "@supabase/supabase-js": "2.119.2",
+    "@types/node": "24.19.2",
+    "eslint": "9.39.5",
+    "typescript": "~6.0.3",
+    "vitest": "5.1.1"
+  }
+}

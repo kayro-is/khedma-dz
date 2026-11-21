@@ -1,0 +1,13 @@
+packages:
+  - apps/*
+  - packages/*
+  - tests/*
+
+# React Native autolinking and EAS Build are most reliable with a flat
+# node_modules layout. See README > "Choix techniques".
+minimumReleaseAgeExclude:
+  - i18next@27.2.2
+  - react-i18next@18.0.3
+  - '@hookform/resolvers@7.0.8'
+
+nodeLinker: hoisted

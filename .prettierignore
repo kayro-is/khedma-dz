@@ -1,0 +1,14 @@
+node_modules
+pnpm-lock.yaml
+.next
+.expo
+dist
+build
+coverage
+apps/mobile/android
+apps/mobile/ios
+supabase/.temp
+supabase/.branches
+# Fichiers générés (KHD-007) : scripts/geo/build-geo.mjs et crosscheck-official.mjs
+supabase/data/geo-dz-2026.json
+supabase/data/geo-crosscheck.md

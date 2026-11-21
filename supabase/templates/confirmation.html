@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Khedma DZ</title>
+  </head>
+  <body
+    style="
+      margin: 0;
+      padding: 0;
+      background: #f6faf8;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #10251b;
+    "
+  >
+    <table
+      role="presentation"
+      width="100%"
+      cellpadding="0"
+      cellspacing="0"
+      style="background: #f6faf8; padding: 24px 12px"
+    >
+      <tr>
+        <td align="center">
+          <table
+            role="presentation"
+            width="100%"
+            cellpadding="0"
+            cellspacing="0"
+            style="
+              max-width: 520px;
+              background: #ffffff;
+              border: 1px solid #e2ebe6;
+              border-radius: 16px;
+            "
+          >
+            <tr>
+              <td style="padding: 24px 28px 8px">
+                <div style="font-size: 20px; font-weight: bold; color: #087f59">
+                  Khedma DZ · خدمة ديزاد
+                </div>
+              </td>
+            </tr>
+            <!-- Français -->
+            <tr>
+              <td dir="ltr" lang="fr" style="padding: 8px 28px 16px; text-align: left">
+                <h1 style="font-size: 20px; margin: 8px 0 12px">Confirmez votre adresse e-mail</h1>
+                <p style="font-size: 15px; line-height: 22px; color: #557064; margin: 0 0 20px">
+                  Bienvenue sur Khedma DZ ! Appuyez sur le bouton ci-dessous
+                  <strong>depuis votre téléphone</strong> pour activer votre compte.
+                </p>
+                <a
+                  href="{{ .ConfirmationURL }}"
+                  style="
+                    display: inline-block;
+                    background: #087f59;
+                    color: #ffffff;
+                    text-decoration: none;
+                    font-weight: bold;
+                    font-size: 16px;
+                    padding: 14px 24px;
+                    border-radius: 12px;
+                  "
+                  >Confirmer mon adresse</a
+                >
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 0 28px">
+                <hr style="border: none; border-top: 1px solid #e2ebe6; margin: 8px 0" />
+              </td>
+            </tr>
+            <!-- العربية -->
+            <tr>
+              <td
+                dir="rtl"
+                lang="ar"
+                style="
+                  padding: 16px 28px 24px;
+                  text-align: right;
+                  font-family: Tahoma, Arial, sans-serif;
+                "
+              >
+                <h1 style="font-size: 20px; margin: 8px 0 12px">أكّد بريدك الإلكتروني</h1>
+                <p style="font-size: 15px; line-height: 26px; color: #557064; margin: 0 0 20px">
+                  مرحبًا بك في خدمة ديزاد! اضغط على الزر أدناه <strong>من هاتفك</strong> لتفعيل
+                  حسابك.
+                </p>
+                <a
+                  href="{{ .ConfirmationURL }}"
+                  style="
+                    display: inline-block;
+                    background: #087f59;
+                    color: #ffffff;
+                    text-decoration: none;
+                    font-weight: bold;
+                    font-size: 16px;
+                    padding: 14px 24px;
+                    border-radius: 12px;
+                  "
+                  >تأكيد بريدي الإلكتروني</a
+                >
+              </td>
+            </tr>
+            <tr>
+              <td
+                style="padding: 16px 28px 24px; font-size: 12px; line-height: 18px; color: #9bb0a6"
+              >
+                Si vous n'êtes pas à l'origine de cette inscription, ignorez cet e-mail.<br />
+                <span dir="rtl" lang="ar">إذا لم تقم بهذا التسجيل، فتجاهل هذه الرسالة.</span>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
