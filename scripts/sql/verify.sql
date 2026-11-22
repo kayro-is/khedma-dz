@@ -24,7 +24,7 @@ protected_columns(tbl, col) as (values
   ('notifications', 'user_id'), ('notifications', 'type')
 ),
 expected_buckets(id, is_public) as (values
-  ('avatars', true), ('portfolio', true), ('request-images', false),
+  ('avatars', true), ('portfolio', false), ('request-images', false),
   ('message-attachments', false), ('verification-documents', false)
 ),
 -- Fonctions privées volontairement appelables depuis les politiques RLS.
@@ -35,7 +35,9 @@ allowed_private_fns(name, role) as (values
   ('is_public_artisan', 'authenticated'), ('artisan_matches_request', 'authenticated'),
   ('can_view_request', 'authenticated'), ('can_view_request_private', 'authenticated'),
   ('is_conversation_member', 'authenticated'), ('is_blocked_between', 'authenticated'),
-  ('conversation_is_blocked', 'authenticated')
+  ('conversation_is_blocked', 'authenticated'),
+  -- KHD-008-SEC : évaluée par la politique de lecture du bucket privé « portfolio ».
+  ('can_read_portfolio_object', 'authenticated')
 ),
 checks(ordre, controle, statut, detail) as (
   select 1, 'RLS activée sur toutes les tables public',
@@ -142,7 +144,7 @@ checks(ordre, controle, statut, detail) as (
   from storage.buckets b where b.id in (select id from expected_buckets)
 
   union all
-  -- Liste exacte des 13 politiques de la migration storage : toute absence est signalée.
+  -- Liste exacte des politiques Storage (migration storage + KHD-008-SEC) : toute absence est signalée.
   select 15, 'Politiques Storage (storage.objects)',
     case when count(*) filter (where p.policyname is null) = 0 then 'OK' else 'FAIL' end,
     case when count(*) filter (where p.policyname is null) = 0
@@ -153,6 +155,7 @@ checks(ordre, controle, statut, detail) as (
     ('avatars: ajout dans son dossier'), ('avatars: remplacement dans son dossier'),
     ('avatars: suppression dans son dossier'),
     ('portfolio: ajout par l''artisan'), ('portfolio: suppression par l''artisan'),
+    ('portfolio: lecture des réalisations autorisées'),
     ('request-images: ajout par le demandeur'), ('request-images: lecture si demande visible'),
     ('request-images: suppression par le demandeur'),
     ('message-attachments: ajout par un membre'), ('message-attachments: lecture par les membres'),

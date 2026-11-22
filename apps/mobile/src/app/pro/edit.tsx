@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { router, usePreventRemove } from 'expo-router';
+import { usePreventRemove } from 'expo-router';
 import { useMemo, useState } from 'react';
 import { Controller, useForm, useWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -33,6 +33,7 @@ import { useDirection } from '@/hooks/useDirection';
 import { sortByLabel } from '@/lib/searchRank';
 import { toast } from '@/store/toastStore';
 import { colors, radius, spacing } from '@/theme';
+import { BACK_FALLBACK, safeBack } from '@/lib/navigation';
 
 /** Informations professionnelles : nom, description, expérience, disponibilité, commune, téléphone. */
 export default function ProEditScreen() {
@@ -43,7 +44,9 @@ export default function ProEditScreen() {
     <Screen
       scroll
       edges={['top', 'bottom', 'left', 'right']}
-      header={<ScreenHeader title={t('pro.edit.title')} onBack={() => router.back()} />}
+      header={
+        <ScreenHeader title={t('pro.edit.title')} onBack={() => safeBack(BACK_FALLBACK.pro)} />
+      }
     >
       {pro.isPending ? (
         <LoadingSkeleton count={4} />
@@ -122,7 +125,7 @@ function ProEditForm({ profile }: { profile: ProProfile }) {
     try {
       await update.mutateAsync(values);
       toast.success(t('pro.saved'));
-      leaveThen(() => router.back());
+      leaveThen(() => safeBack(BACK_FALLBACK.pro));
     } catch (error) {
       setServerError(proErrorKey(error));
     }

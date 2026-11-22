@@ -19,9 +19,20 @@ describe('authErrorKey', () => {
     [{ code: 'user_banned', status: 403 }, 'accountSuspended'],
     [{ name: 'AuthRetryableFetchError', status: 0, message: 'Network request failed' }, 'network'],
     [new TypeError('Network request failed'), 'network'],
+    // RÉGRESSION KHD-008-AUTH-UX : auth-js signale les erreurs HTTP 500 comme « retryable ».
+    [
+      { name: 'AuthRetryableFetchError', status: 500, message: 'Database error saving new user' },
+      'signupRejected',
+    ],
+    [
+      { name: 'AuthRetryableFetchError', status: 500, message: 'Error sending confirmation email' },
+      'emailSendFailed',
+    ],
+    [{ name: 'AuthRetryableFetchError', status: 503, message: 'HTTP 503' }, 'serverUnavailable'],
+    [{ name: 'AuthRetryableFetchError', status: 504, message: '' }, 'serverUnavailable'],
     [{ status: 429, message: 'Too many' }, 'tooManyRequests'],
     [{ message: 'Invalid login credentials', status: 400 }, 'invalidCredentials'],
-    [{ code: 'quelque_chose_de_nouveau', status: 500 }, 'unknown'],
+    [{ code: 'quelque_chose_de_nouveau', status: 500 }, 'serverUnavailable'],
     [null, 'unknown'],
     ['texte', 'unknown'],
   ])('%j → %s', (error, expected) => {
@@ -42,5 +53,19 @@ describe('traductions des erreurs', () => {
   ])('toutes les erreurs sont traduites en %s', (_, dict) => {
     const errors = (dict as { auth: { errors: Record<string, string> } }).auth.errors;
     for (const key of AUTH_ERROR_KEYS) expect(errors[key], key).toBeTruthy();
+  });
+});
+
+describe('RÉGRESSION KHD-008-AUTH-UX : une erreur serveur n’est jamais « pas de connexion »', () => {
+  it.each([500, 502, 503, 504, 520])('HTTP %i → jamais « network »', (status) => {
+    expect(authErrorKey({ name: 'AuthRetryableFetchError', status, message: 'x' })).not.toBe(
+      'network',
+    );
+  });
+
+  it('seule une absence de réponse (statut 0, échec de fetch) est une erreur réseau', () => {
+    expect(
+      authErrorKey({ name: 'AuthRetryableFetchError', status: 0, message: 'Failed to fetch' }),
+    ).toBe('network');
   });
 });

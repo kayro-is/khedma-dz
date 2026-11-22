@@ -12,9 +12,11 @@ import { FormTextInput } from '@/components/form/FormTextInput';
 import { Button } from '@/components/ui/Button';
 import type { AuthErrorKey } from '@/features/auth/authErrors';
 import { requestPasswordReset } from '@/features/auth/authService';
+import { BACK_FALLBACK, useSafeBack } from '@/lib/navigation';
 
 export default function ForgotPasswordScreen() {
   const { t } = useTranslation();
+  const goBack = useSafeBack(BACK_FALLBACK.auth);
   const [serverError, setServerError] = useState<AuthErrorKey | null>(null);
 
   const { control, handleSubmit, formState } = useForm<
@@ -39,11 +41,7 @@ export default function ForgotPasswordScreen() {
   });
 
   return (
-    <AuthLayout
-      title={t('auth.forgot.title')}
-      subtitle={t('auth.forgot.subtitle')}
-      onBack={() => router.back()}
-    >
+    <AuthLayout title={t('auth.forgot.title')} subtitle={t('auth.forgot.subtitle')} onBack={goBack}>
       {serverError ? <FormAlert message={t(`auth.errors.${serverError}`)} /> : null}
       <FormTextInput
         control={control}

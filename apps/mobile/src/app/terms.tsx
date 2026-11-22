@@ -1,4 +1,3 @@
-import { router } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
 
@@ -6,6 +5,7 @@ import { EmptyState } from '@/components/ui/EmptyState';
 import { IconButton } from '@/components/ui/IconButton';
 import { Screen } from '@/components/ui/Screen';
 import { ScreenHeader } from '@/components/ui/ScreenHeader';
+import { BACK_FALLBACK, useSafeBack } from '@/lib/navigation';
 
 /**
  * Conditions d'utilisation et politique de confidentialité.
@@ -13,6 +13,7 @@ import { ScreenHeader } from '@/components/ui/ScreenHeader';
  */
 export default function TermsScreen() {
   const { t } = useTranslation();
+  const goBack = useSafeBack(BACK_FALLBACK.entry);
   return (
     <Screen
       edges={['top', 'bottom', 'left', 'right']}
@@ -24,7 +25,7 @@ export default function TermsScreen() {
             <IconButton
               icon="close"
               accessibilityLabel={t('common.close')}
-              onPress={() => router.back()}
+              onPress={() => goBack()}
             />
           }
         />

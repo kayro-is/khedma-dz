@@ -24,6 +24,8 @@ import {
 const PORTFOLIO_BUCKET = 'portfolio';
 /** Limite du bucket « portfolio » (5 Mo). */
 export const PORTFOLIO_MAX_BYTES = 5 * 1024 * 1024;
+/** Durée de vie des URL signées des photos de réalisation : 10 minutes. */
+export const PORTFOLIO_SIGNED_URL_TTL_SECONDS = 600;
 
 type Named = { nameFr: string; nameAr: string };
 type WilayaRef = Named & { id: number; code: string };
@@ -34,7 +36,9 @@ export type ProPortfolioItem = {
   id: string;
   caption: string | null;
   sortOrder: number;
+  /** Chemin Storage (stable) : sert aussi de clé de cache de l'image sur l'appareil. */
   imagePath: string | null;
+  /** URL signée temporaire (jamais enregistrée en base), null si l'accès est refusé. */
   imageUrl: string | null;
 };
 
@@ -63,9 +67,24 @@ const wilayaRef = (
   w: { id: number; code: string; name_fr: string; name_ar: string } | null,
 ): WilayaRef | null => (w ? { id: w.id, code: w.code, ...named(w) } : null);
 
-export function portfolioPublicUrl(path: string | null): string | null {
-  if (!path) return null;
-  return supabase.storage.from(PORTFOLIO_BUCKET).getPublicUrl(path).data.publicUrl;
+/**
+ * Accès aux photos de réalisation (bucket PRIVÉ, KHD-008-SEC) : URL signées de courte durée,
+ * demandées en un seul appel. Supabase ne les délivre qu'aux utilisateurs autorisés (l'artisan
+ * lui-même, ou tout utilisateur connecté si le profil est publié). Elles ne sont jamais
+ * enregistrées en base : l'application les renouvelle avant expiration (voir signedUrlRefresh).
+ * Une URL déjà délivrée reste valable jusqu'à son expiration, même après une dépublication.
+ */
+export async function signPortfolioPaths(paths: readonly string[]): Promise<Map<string, string>> {
+  if (paths.length === 0) return new Map();
+  const { data, error } = await supabase.storage
+    .from(PORTFOLIO_BUCKET)
+    .createSignedUrls([...paths], PORTFOLIO_SIGNED_URL_TTL_SECONDS);
+  if (error) throw error;
+  const urls = new Map<string, string>();
+  for (const entry of data ?? []) {
+    if (entry.path && entry.signedUrl && !entry.error) urls.set(entry.path, entry.signedUrl);
+  }
+  return urls;
 }
 
 export async function fetchProProfile(userId: string): Promise<ProProfile | null> {
@@ -103,6 +122,19 @@ export async function fetchProProfile(userId: string): Promise<ProProfile | null
   const p = profile.data;
   if (!p) return null;
 
+  const items = (portfolio.data ?? []).map((item) => {
+    const image = [...(item.images ?? [])].sort((a, b) => a.sort_order - b.sort_order)[0];
+    return {
+      id: item.id,
+      caption: item.title,
+      sortOrder: item.sort_order,
+      imagePath: image?.storage_path ?? null,
+    };
+  });
+  const signed = await signPortfolioPaths(
+    items.map((item) => item.imagePath).filter((path): path is string => path !== null),
+  );
+
   return {
     businessName: p.business_name,
     description: p.description,
@@ -133,17 +165,10 @@ export async function fetchProProfile(userId: string): Promise<ProProfile | null
       nameAr: z.commune?.name_ar ?? '',
       wilaya: wilayaRef(z.commune?.wilaya ?? null),
     })),
-    portfolio: (portfolio.data ?? []).map((item) => {
-      const image = [...(item.images ?? [])].sort((a, b) => a.sort_order - b.sort_order)[0];
-      const path = image?.storage_path ?? null;
-      return {
-        id: item.id,
-        caption: item.title,
-        sortOrder: item.sort_order,
-        imagePath: path,
-        imageUrl: portfolioPublicUrl(path),
-      };
-    }),
+    portfolio: items.map((item) => ({
+      ...item,
+      imageUrl: item.imagePath ? (signed.get(item.imagePath) ?? null) : null,
+    })),
   };
 }
 

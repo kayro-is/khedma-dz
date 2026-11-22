@@ -131,6 +131,18 @@ export function fitWithin(width: number, height: number, max = PORTFOLIO_MAX_SID
     : { width: Math.round((width * max) / height), height: max };
 }
 
+/**
+ * Renouvellement des URL signées (photos privées) : données jugées périmées à 40 % de la durée
+ * de vie, rechargées automatiquement à 75 % ; une URL n'est donc jamais affichée expirée tant
+ * que l'écran est ouvert. Au-delà, l'image en cache sur l'appareil reste affichée (clé = chemin).
+ */
+export function signedUrlRefresh(ttlSeconds: number) {
+  return {
+    staleTime: Math.round(ttlSeconds * 1000 * 0.4),
+    refetchInterval: Math.round(ttlSeconds * 1000 * 0.75),
+  };
+}
+
 // ----------------------------------------------------------------------------- Zones par wilaya
 
 export type ZoneLike = {

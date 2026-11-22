@@ -1,4 +1,4 @@
-import { router, usePreventRemove } from 'expo-router';
+import { usePreventRemove } from 'expo-router';
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
@@ -22,6 +22,7 @@ import { categoryIcon } from '@/features/categories/categoryIcons';
 import { useDirection } from '@/hooks/useDirection';
 import { toast } from '@/store/toastStore';
 import { spacing } from '@/theme';
+import { BACK_FALLBACK, safeBack } from '@/lib/navigation';
 
 /** Métier principal et métiers secondaires (5 au maximum). */
 export default function ProTradesScreen() {
@@ -35,7 +36,9 @@ export default function ProTradesScreen() {
     <Screen
       scroll
       edges={['top', 'bottom', 'left', 'right']}
-      header={<ScreenHeader title={t('pro.trades.title')} onBack={() => router.back()} />}
+      header={
+        <ScreenHeader title={t('pro.trades.title')} onBack={() => safeBack(BACK_FALLBACK.pro)} />
+      }
     >
       {loading ? (
         <LoadingSkeleton count={3} />
@@ -102,7 +105,7 @@ function TradesForm({ profile, categories }: { profile: ProProfile; categories: 
     try {
       await save.mutateAsync({ current: profile, values: parsed.data });
       toast.success(t('pro.saved'));
-      leaveThen(() => router.back());
+      leaveThen(() => safeBack(BACK_FALLBACK.pro));
     } catch (error) {
       setServerError(proErrorKey(error));
     }

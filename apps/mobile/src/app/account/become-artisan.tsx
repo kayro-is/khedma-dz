@@ -11,6 +11,7 @@ import { ScreenHeader } from '@/components/ui/ScreenHeader';
 import { Text } from '@/components/ui/Text';
 import { useSpace } from '@/features/space/SpaceProvider';
 import { colors, radius, shadows, spacing } from '@/theme';
+import { BACK_FALLBACK, safeBack } from '@/lib/navigation';
 
 const BENEFITS: { icon: IconName; key: 'sameAccount' | 'switchAnytime' | 'private' }[] = [
   { icon: 'person-circle-outline', key: 'sameAccount' },
@@ -33,7 +34,12 @@ export default function BecomeArtisanScreen() {
     <Screen
       scroll
       edges={['top', 'bottom', 'left', 'right']}
-      header={<ScreenHeader title={t('space.welcome.screenTitle')} onBack={() => router.back()} />}
+      header={
+        <ScreenHeader
+          title={t('space.welcome.screenTitle')}
+          onBack={() => safeBack(BACK_FALLBACK.entry)}
+        />
+      }
       contentStyle={styles.content}
     >
       <Animated.View
@@ -94,7 +100,7 @@ export default function BecomeArtisanScreen() {
           label={t('space.welcome.later')}
           variant="ghost"
           fullWidth
-          onPress={() => router.back()}
+          onPress={() => safeBack(BACK_FALLBACK.entry)}
         />
       </View>
     </Screen>

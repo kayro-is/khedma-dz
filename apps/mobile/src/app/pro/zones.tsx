@@ -1,5 +1,5 @@
 import * as Haptics from 'expo-haptics';
-import { router, usePreventRemove } from 'expo-router';
+import { usePreventRemove } from 'expo-router';
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FlatList, Pressable, StyleSheet, View, useWindowDimensions } from 'react-native';
@@ -31,6 +31,7 @@ import { useDirection } from '@/hooks/useDirection';
 import { buildSearchIndex, searchIndex, sortByLabel } from '@/lib/searchRank';
 import { toast } from '@/store/toastStore';
 import { colors, MIN_TOUCH_SIZE, radius, spacing } from '@/theme';
+import { BACK_FALLBACK, safeBack } from '@/lib/navigation';
 
 /** Zones d'intervention : communes du référentiel officiel (KHD-007), sans calcul de distance. */
 export default function ProZonesScreen() {
@@ -40,7 +41,9 @@ export default function ProZonesScreen() {
     <Screen
       scroll
       edges={['top', 'bottom', 'left', 'right']}
-      header={<ScreenHeader title={t('pro.zones.title')} onBack={() => router.back()} />}
+      header={
+        <ScreenHeader title={t('pro.zones.title')} onBack={() => safeBack(BACK_FALLBACK.pro)} />
+      }
     >
       {pro.isPending ? (
         <LoadingSkeleton count={3} />
@@ -115,7 +118,7 @@ function ZonesEditor({ profile }: { profile: ProProfile }) {
     try {
       await save.mutateAsync({ currentIds: initialIds, nextIds: [...draft.keys()] });
       toast.success(t('pro.saved'));
-      leaveThen(() => router.back());
+      leaveThen(() => safeBack(BACK_FALLBACK.pro));
     } catch (error) {
       setServerError(proErrorKey(error));
     }

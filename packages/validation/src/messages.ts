@@ -30,6 +30,7 @@ export const VALIDATION_MESSAGES = {
   descriptionTooLong: 'validation.descriptionTooLong',
   tradesTooMany: 'validation.tradesTooMany',
   captionTooLong: 'validation.captionTooLong',
+  phoneMaybeTaken: 'validation.phoneMaybeTaken',
 } as const;
 
 export type ValidationMessageKey = (typeof VALIDATION_MESSAGES)[keyof typeof VALIDATION_MESSAGES];

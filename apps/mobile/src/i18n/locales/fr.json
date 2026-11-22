@@ -72,7 +72,8 @@
     "yearsExperienceInvalid": "Saisissez un nombre d'années entre 0 et 70.",
     "descriptionTooLong": "La description ne peut pas dépasser 2 000 caractères.",
     "tradesTooMany": "Vous pouvez choisir 5 métiers secondaires au maximum.",
-    "captionTooLong": "La légende ne peut pas dépasser 100 caractères."
+    "captionTooLong": "La légende ne peut pas dépasser 100 caractères.",
+    "phoneMaybeTaken": "Ce numéro est peut-être déjà associé à un autre compte."
   },
   "error": {
     "title": "Une erreur est survenue",
@@ -375,18 +376,26 @@
       "submit": "Envoyer le lien"
     },
     "checkEmail": {
-      "titleSignUp": "Confirmez votre adresse e-mail",
+      "titleSignUp": "Vérifiez votre boîte e-mail",
       "titleReset": "Vérifiez votre boîte e-mail",
-      "body": "Si cette adresse peut recevoir un lien, un e-mail vient d’être envoyé à {{email}}. Ouvrez-le depuis ce téléphone pour continuer.",
+      "body": "Si cette adresse peut recevoir un lien, un e-mail de confirmation vient d’être envoyé à {{email}}.",
       "hint": "Pensez à vérifier vos courriers indésirables.",
       "resend": "Renvoyer l'e-mail",
       "resendIn": "Renvoyer dans {{seconds}} s",
       "resent": "E-mail renvoyé.",
-      "backToSignIn": "Retour à la connexion"
+      "backToSignIn": "Retour à la connexion",
+      "steps": {
+        "open": "Ouvrez cet e-mail sur ce téléphone.",
+        "tap": "Touchez le lien de confirmation.",
+        "return": "Revenez dans Khedma DZ et touchez « J’ai confirmé mon e-mail »."
+      },
+      "confirmed": "J’ai confirmé mon e-mail",
+      "checkAgainIn": "Nouvelle vérification dans {{seconds}} s",
+      "notConfirmedYet": "Votre adresse n’est pas encore confirmée. Touchez le lien reçu par e-mail, puis réessayez. Rien reçu ? Renvoyez l’e-mail.",
+      "signInToFinish": "Connectez-vous pour terminer : la confirmation sera vérifiée."
     },
     "callback": {
       "verifying": "Vérification du lien…",
-      "confirmed": "Adresse e-mail confirmée. Bienvenue sur Khedma DZ !",
       "failedTitle": "Lien invalide ou expiré",
       "failedBody": "Ce lien n'est plus valable ou a été ouvert sur un autre appareil. Si vous avez déjà confirmé votre adresse, connectez-vous simplement.",
       "goToSignIn": "Aller à la connexion"
@@ -437,8 +446,18 @@
       "signupDisabled": "Les inscriptions sont momentanément fermées.",
       "accountSuspended": "Ce compte est suspendu. Contactez le support.",
       "reauthenticationNeeded": "Pour des raisons de sécurité, reconnectez-vous avant de modifier votre mot de passe.",
+      "signupRejected": "Le compte n'a pas pu être créé avec ces informations. Si ce numéro de téléphone est déjà utilisé par un autre compte, saisissez-en un autre, puis réessayez.",
+      "emailSendFailed": "L'e-mail de confirmation n'a pas pu être envoyé. Réessayez dans quelques minutes.",
+      "serverUnavailable": "Le service est momentanément indisponible. Réessayez dans quelques instants.",
       "network": "Connexion impossible. Vérifiez votre accès à internet.",
       "unknown": "Une erreur inattendue est survenue. Réessayez."
+    },
+    "emailConfirmed": {
+      "title": "Adresse e-mail confirmée",
+      "bodySignedIn": "Votre compte Khedma DZ est activé. Bienvenue !",
+      "bodySignedOut": "Votre adresse est confirmée. Connectez-vous pour accéder à Khedma DZ.",
+      "openApp": "Accéder à Khedma DZ",
+      "signIn": "Se connecter"
     }
   },
   "space": {

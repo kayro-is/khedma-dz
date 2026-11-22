@@ -116,7 +116,7 @@ describe('téléphone professionnel', () => {
 });
 
 describe('galerie (bucket portfolio)', () => {
-  it('ajout d’une réalisation sans légende, image publique identique, réorganisation, suppression', async () => {
+  it('ajout d’une réalisation sans légende, accès par URL signée uniquement, réorganisation, suppression', async () => {
     const karim = await signedIn('karim@khedma.test');
     const item = await karim
       .from('portfolio_items')
@@ -141,7 +141,14 @@ describe('galerie (bucket portfolio)', () => {
       .insert({ item_id: itemId, storage_path: path });
     expect(image.error).toBeNull();
 
-    const response = await fetch(karim.storage.from('portfolio').getPublicUrl(path).data.publicUrl);
+    // Bucket privé : l'URL publique ne donne plus accès à l'image.
+    const publicUrl = karim.storage.from('portfolio').getPublicUrl(path).data.publicUrl;
+    expect((await fetch(publicUrl)).status).not.toBe(200);
+
+    // URL signée de l'artisan : contenu exact.
+    const signed = await karim.storage.from('portfolio').createSignedUrl(path, 60);
+    expect(signed.error).toBeNull();
+    const response = await fetch(signed.data?.signedUrl as string);
     expect(response.status).toBe(200);
     expect(Array.from(new Uint8Array(await response.arrayBuffer()))).toEqual(Array.from(TINY_JPEG));
 
@@ -153,6 +160,64 @@ describe('galerie (bucket portfolio)', () => {
     const file = await karim.storage.from('portfolio').remove([path]);
     expect(file.error).toBeNull();
   });
+
+  it('accès selon la publication : client autorisé si publié, refusé après dépublication ; URL qui expire', async () => {
+    const karim = await signedIn('karim@khedma.test');
+    const amina = await signedIn('amina@khedma.test');
+    const yacine = await signedIn('yacine@khedma.test');
+    const item = await karim
+      .from('portfolio_items')
+      .insert({ artisan_id: KARIM, title: 'Test confidentialité', sort_order: 0 })
+      .select('id')
+      .single();
+    const itemId = item.data?.id as string;
+    const path = `${KARIM}/${itemId}/${Date.now()}.jpg`;
+    // Nettoyage garanti : republication de Karim, suppression de la réalisation et du fichier.
+    cleanups.push(async () => {
+      const k = await signedIn('karim@khedma.test');
+      await k.from('artisan_profiles').update({ is_published: true }).eq('user_id', KARIM);
+      await k.from('portfolio_items').delete().eq('id', itemId);
+      await k.storage.from('portfolio').remove([path]);
+    });
+    expect(
+      (await karim.storage.from('portfolio').upload(path, body(), { contentType: 'image/jpeg' }))
+        .error,
+    ).toBeNull();
+    expect(
+      (await karim.from('portfolio_images').insert({ item_id: itemId, storage_path: path })).error,
+    ).toBeNull();
+
+    // Profil publié : un client obtient un accès.
+    const client = await amina.storage.from('portfolio').createSignedUrl(path, 60);
+    expect(client.error).toBeNull();
+    expect((await fetch(client.data?.signedUrl as string)).status).toBe(200);
+
+    // Un client ne peut pas supprimer la photo d'un artisan.
+    await amina.storage.from('portfolio').remove([path]);
+    expect((await karim.storage.from('portfolio').createSignedUrl(path, 60)).error).toBeNull();
+
+    // URL signée de courte durée : refusée après expiration.
+    const short = await karim.storage.from('portfolio').createSignedUrl(path, 2);
+    expect((await fetch(short.data?.signedUrl as string)).status).toBe(200);
+    await new Promise((resolve) => setTimeout(resolve, 4000));
+    expect((await fetch(short.data?.signedUrl as string)).status).not.toBe(200);
+
+    // Dépublication : plus aucun nouvel accès pour les autres ; l'artisan garde l'accès.
+    expect(
+      (await karim.from('artisan_profiles').update({ is_published: false }).eq('user_id', KARIM))
+        .error,
+    ).toBeNull();
+    expect((await amina.storage.from('portfolio').createSignedUrl(path, 60)).error).not.toBeNull();
+    expect((await yacine.storage.from('portfolio').createSignedUrl(path, 60)).error).not.toBeNull();
+    expect((await karim.storage.from('portfolio').createSignedUrl(path, 60)).error).toBeNull();
+
+    // Republication : rien n'a été perdu, l'accès revient.
+    expect(
+      (await karim.from('artisan_profiles').update({ is_published: true }).eq('user_id', KARIM))
+        .error,
+    ).toBeNull();
+    expect((await amina.storage.from('portfolio').createSignedUrl(path, 60)).error).toBeNull();
+  }, 20_000);
 
   it('un utilisateur sans rôle artisan ne peut rien déposer dans la galerie', async () => {
     const amina = await signedIn('amina@khedma.test');

@@ -18,6 +18,9 @@ export const AUTH_ERROR_KEYS = [
   'signupDisabled',
   'accountSuspended',
   'reauthenticationNeeded',
+  'signupRejected',
+  'emailSendFailed',
+  'serverUnavailable',
   'network',
   'unknown',
 ] as const;
@@ -60,7 +63,18 @@ export function authErrorKey(error: unknown): AuthErrorKey {
 
   if (typeof e.code === 'string' && CODE_MAP[e.code]) return CODE_MAP[e.code] as AuthErrorKey;
 
-  // Erreurs réseau : client hors ligne, délai dépassé, DNS…
+  // Erreurs serveur (5xx). Attention : @supabase/auth-js les signale TOUTES comme
+  // « AuthRetryableFetchError » (HTTP 500 compris). Elles ne doivent jamais être présentées
+  // comme une absence de connexion internet (KHD-008-AUTH-UX).
+  if (typeof e.status === 'number' && e.status >= 500) {
+    const message = typeof e.message === 'string' ? e.message : '';
+    // Échec du trigger de création de profil (ex. numéro de téléphone déjà utilisé) : rien n'est créé.
+    if (/database error saving new user/i.test(message)) return 'signupRejected';
+    if (/error sending .*(email|mail)/i.test(message)) return 'emailSendFailed';
+    return 'serverUnavailable';
+  }
+
+  // Erreurs réseau : client hors ligne, délai dépassé, DNS… (aucune réponse du serveur).
   if (e.name === 'AuthRetryableFetchError' || e.status === 0) return 'network';
   if (
     typeof e.message === 'string' &&

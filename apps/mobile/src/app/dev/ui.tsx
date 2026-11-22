@@ -1,4 +1,4 @@
-import { Redirect, router } from 'expo-router';
+import { Redirect } from 'expo-router';
 import { useState, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
@@ -54,6 +54,7 @@ import type { PickedImage } from '@/features/media/validateImages';
 import { useDirection } from '@/hooks/useDirection';
 import { toast } from '@/store/toastStore';
 import { spacing, textVariants, type TextVariant } from '@/theme';
+import { BACK_FALLBACK, safeBack } from '@/lib/navigation';
 
 function Section({ title, children }: { title: string; children: ReactNode }) {
   return (
@@ -106,7 +107,7 @@ export default function UiCatalogScreen() {
         <ScreenHeader
           title={t('dev.title')}
           subtitle={t('dev.subtitle')}
-          onBack={() => router.back()}
+          onBack={() => safeBack(BACK_FALLBACK.entry)}
         />
       }
     >

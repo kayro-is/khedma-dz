@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Redirect, router } from 'expo-router';
+import { Redirect } from 'expo-router';
 import { useMemo, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -32,6 +32,7 @@ import { useDirection } from '@/hooks/useDirection';
 import { sortByLabel } from '@/lib/searchRank';
 import { toast } from '@/store/toastStore';
 import { colors, radius, spacing } from '@/theme';
+import { BACK_FALLBACK, safeBack } from '@/lib/navigation';
 
 /** Activation de l'espace Artisan sur le compte existant : informations minimales (KHD-006). */
 export default function ArtisanSetupScreen() {
@@ -46,7 +47,9 @@ export default function ArtisanSetupScreen() {
     <Screen
       scroll
       edges={['top', 'bottom', 'left', 'right']}
-      header={<ScreenHeader title={t('space.setup.title')} onBack={() => router.back()} />}
+      header={
+        <ScreenHeader title={t('space.setup.title')} onBack={() => safeBack(BACK_FALLBACK.entry)} />
+      }
     >
       {profile.isPending ? (
         <View style={styles.form}>

@@ -9,6 +9,7 @@ import {
   addPortfolioPhoto,
   deletePortfolioItem,
   fetchProProfile,
+  PORTFOLIO_SIGNED_URL_TTL_SECONDS,
   reorderPortfolio,
   saveTrades,
   saveZones,
@@ -18,6 +19,7 @@ import {
   type ProPortfolioItem,
   type ProProfile,
 } from './proProfileApi';
+import { signedUrlRefresh } from './proProfileLogic';
 
 export const proKeys = { profile: (userId: string) => ['pro-profile', userId] as const };
 
@@ -32,6 +34,8 @@ export function useProProfile() {
   return useQuery({
     queryKey: proKeys.profile(userId),
     queryFn: () => fetchProProfile(userId),
+    // URL signées des photos : renouvelées avant expiration tant que l'écran est ouvert.
+    ...signedUrlRefresh(PORTFOLIO_SIGNED_URL_TTL_SECONDS),
   });
 }
 

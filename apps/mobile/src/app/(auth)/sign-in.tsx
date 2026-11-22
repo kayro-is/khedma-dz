@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { router } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -17,9 +17,14 @@ import type { AuthErrorKey } from '@/features/auth/authErrors';
 import { resendConfirmation, signIn } from '@/features/auth/authService';
 import { toast } from '@/store/toastStore';
 import { spacing } from '@/theme';
+import { BACK_FALLBACK, useSafeBack } from '@/lib/navigation';
 
 export default function SignInScreen() {
   const { t } = useTranslation();
+  const goBack = useSafeBack(BACK_FALLBACK.entry);
+  // Adresse pré-remplie depuis « Vérifiez votre boîte e-mail » (jamais le mot de passe).
+  const params = useLocalSearchParams<{ email?: string }>();
+  const initialEmail = typeof params.email === 'string' ? params.email : '';
   const { signOutReason, acknowledgeSignOutReason } = useAuth();
   const [serverError, setServerError] = useState<AuthErrorKey | null>(null);
   const [resending, setResending] = useState(false);
@@ -37,7 +42,7 @@ export default function SignInScreen() {
   >({
     resolver: zodResolver(signInSchema),
     mode: 'onTouched',
-    defaultValues: { email: '', password: '' },
+    defaultValues: { email: initialEmail, password: '' },
   });
 
   const onSubmit = handleSubmit(async (values) => {
@@ -63,7 +68,7 @@ export default function SignInScreen() {
     <AuthLayout
       title={t('auth.signIn.title')}
       subtitle={t('auth.signIn.subtitle')}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace('/'))}
+      onBack={goBack}
       footer={
         <View style={styles.inline}>
           <Text variant="body" color="textSecondary">

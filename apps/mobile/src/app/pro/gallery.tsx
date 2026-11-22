@@ -1,5 +1,5 @@
 import { Image } from 'expo-image';
-import { router } from 'expo-router';
+
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ActivityIndicator, Pressable, ScrollView, StyleSheet, View } from 'react-native';
@@ -8,6 +8,7 @@ import { ARTISAN_RULES, portfolioCaptionSchema } from '@khedma/validation';
 
 import { FormAlert } from '@/components/auth/FormAlert';
 import { TextInput } from '@/components/form/TextInput';
+import { PortfolioImage } from '@/components/pro/PortfolioImage';
 import { BottomSheet } from '@/components/ui/BottomSheet';
 import { Button } from '@/components/ui/Button';
 import { EmptyState } from '@/components/ui/EmptyState';
@@ -24,6 +25,7 @@ import { moveItem, proErrorKey } from '@/features/artisan/proProfileLogic';
 import { usePortfolioMutations, useProProfile } from '@/features/artisan/useProProfile';
 import { toast } from '@/store/toastStore';
 import { colors, radius, spacing } from '@/theme';
+import { BACK_FALLBACK, safeBack } from '@/lib/navigation';
 
 type Pending = PreparedPhoto & { caption: string };
 
@@ -35,7 +37,9 @@ export default function ProGalleryScreen() {
     <Screen
       scroll
       edges={['top', 'bottom', 'left', 'right']}
-      header={<ScreenHeader title={t('pro.gallery.title')} onBack={() => router.back()} />}
+      header={
+        <ScreenHeader title={t('pro.gallery.title')} onBack={() => safeBack(BACK_FALLBACK.pro)} />
+      }
     >
       {pro.isPending ? (
         <View style={styles.grid}>
@@ -55,7 +59,7 @@ export default function ProGalleryScreen() {
 function Gallery({ profile }: { profile: ProProfile }) {
   const { t } = useTranslation();
   const mutations = usePortfolioMutations();
-  const items = profile.portfolio.filter((item) => item.imageUrl);
+  const items = profile.portfolio.filter((item) => item.imagePath);
   const remaining = ARTISAN_RULES.portfolioMax - profile.portfolio.length;
   const [pending, setPending] = useState<Pending[]>([]);
   const [preparing, setPreparing] = useState(false);
@@ -164,11 +168,11 @@ function Gallery({ profile }: { profile: ProProfile }) {
               }
               style={styles.tile}
             >
-              <Image
-                source={{ uri: item.imageUrl ?? undefined }}
+              <PortfolioImage
+                url={item.imageUrl}
+                path={item.imagePath}
                 style={styles.image}
-                contentFit="cover"
-                transition={150}
+                onExpired={() => void mutations.refresh()}
               />
               {item.caption ? (
                 <View style={styles.captionBar}>
@@ -301,10 +305,11 @@ function ItemSheet({
       title={t('pro.gallery.itemTitle', { index: position + 1 })}
     >
       <View style={styles.itemSheet}>
-        <Image
-          source={{ uri: item.imageUrl ?? undefined }}
+        <PortfolioImage
+          url={item.imageUrl}
+          path={item.imagePath}
           style={styles.large}
-          contentFit="cover"
+          onExpired={() => void mutations.refresh()}
         />
         {error ? <FormAlert message={error} /> : null}
         <TextInput

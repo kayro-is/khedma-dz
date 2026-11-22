@@ -1,4 +1,3 @@
-import { router } from 'expo-router';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
@@ -12,6 +11,7 @@ import { Text } from '@/components/ui/Text';
 import { useLanguageSwitch } from '@/hooks/useLanguageSwitch';
 import { currentLocale } from '@/i18n';
 import { spacing } from '@/theme';
+import { BACK_FALLBACK, safeBack } from '@/lib/navigation';
 
 export default function LanguageScreen() {
   const { t } = useTranslation();
@@ -22,8 +22,7 @@ export default function LanguageScreen() {
   const onContinue = async () => {
     const { restartRequired } = await switchTo(selected);
     if (restartRequired) return;
-    if (router.canGoBack()) router.back();
-    else router.replace('/');
+    safeBack(BACK_FALLBACK.entry);
   };
 
   return (

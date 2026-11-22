@@ -5,7 +5,12 @@ import { Controller, useForm, useWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 
-import { signUpSchema, type SignUpInput, type SignUpValues } from '@khedma/validation';
+import {
+  signUpSchema,
+  VALIDATION_MESSAGES,
+  type SignUpInput,
+  type SignUpValues,
+} from '@khedma/validation';
 
 import { AuthLayout } from '@/components/auth/AuthLayout';
 import { FormAlert } from '@/components/auth/FormAlert';
@@ -16,15 +21,22 @@ import { Button } from '@/components/ui/Button';
 import { Text } from '@/components/ui/Text';
 import type { AuthErrorKey } from '@/features/auth/authErrors';
 import { signUp } from '@/features/auth/authService';
+import { rememberPendingConfirmation } from '@/features/auth/pendingConfirmation';
 import { useDirection } from '@/hooks/useDirection';
 import { spacing } from '@/theme';
+import { BACK_FALLBACK, useSafeBack } from '@/lib/navigation';
 
 export default function SignUpScreen() {
   const { t } = useTranslation();
+  const goBack = useSafeBack(BACK_FALLBACK.auth);
   const { locale } = useDirection();
   const [serverError, setServerError] = useState<AuthErrorKey | null>(null);
 
-  const { control, handleSubmit, formState } = useForm<SignUpInput, unknown, SignUpValues>({
+  const { control, handleSubmit, formState, setError } = useForm<
+    SignUpInput,
+    unknown,
+    SignUpValues
+  >({
     resolver: zodResolver(signUpSchema),
     mode: 'onTouched',
     defaultValues: {
@@ -44,8 +56,14 @@ export default function SignUpScreen() {
     const result = await signUp(values, locale);
     if (!result.ok) {
       setServerError(result.error);
+      // Création refusée par le serveur : cause la plus fréquente, un numéro déjà utilisé.
+      if (result.error === 'signupRejected') {
+        setError('phone', { type: 'server', message: VALIDATION_MESSAGES.phoneMaybeTaken });
+      }
       return;
     }
+    // Identifiants gardés en mémoire seulement (jamais dans l'URL) pour « J'ai confirmé mon e-mail ».
+    rememberPendingConfirmation(values.email, values.password);
     router.replace({ pathname: '/check-email', params: { mode: 'signup', email: values.email } });
   });
 
@@ -53,7 +71,7 @@ export default function SignUpScreen() {
     <AuthLayout
       title={t('auth.signUp.title')}
       subtitle={t('auth.signUp.subtitle')}
-      onBack={() => router.back()}
+      onBack={goBack}
       footer={
         <View style={styles.inline}>
           <Text variant="body" color="textSecondary">

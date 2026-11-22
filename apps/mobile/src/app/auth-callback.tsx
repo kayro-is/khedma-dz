@@ -10,7 +10,7 @@ import { Screen } from '@/components/ui/Screen';
 import { Text } from '@/components/ui/Text';
 import { parseAuthCallback } from '@/features/auth/authCallback';
 import { exchangeCode } from '@/features/auth/authService';
-import { toast } from '@/store/toastStore';
+import { markJustConfirmed } from '@/features/auth/pendingConfirmation';
 import { colors, spacing } from '@/theme';
 
 /**
@@ -41,14 +41,11 @@ export default function AuthCallbackScreen() {
         setExchangeFailed(true);
         return;
       }
-      if (parsed.next === 'reset-password') {
-        router.replace('/reset-password');
-      } else {
-        toast.success(t('auth.callback.confirmed'));
-        router.replace('/');
-      }
+      // Code échangé : Supabase a confirmé l'adresse et ouvert une session.
+      if (parsed.next !== 'reset-password') markJustConfirmed();
+      router.replace(parsed.next === 'reset-password' ? '/reset-password' : '/email-confirmed');
     });
-  }, [parsed, t]);
+  }, [parsed]);
 
   if (failed) {
     return (

@@ -105,6 +105,7 @@ function RootNavigator() {
       <Stack.Screen name="index" />
       <Stack.Screen name="(onboarding)/language" />
       <Stack.Screen name="auth-callback" />
+      <Stack.Screen name="email-confirmed" />
       <Stack.Screen name="terms" options={{ presentation: 'modal' }} />
 
       <Stack.Protected guard={!signedIn}>

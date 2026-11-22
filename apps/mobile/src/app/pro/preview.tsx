@@ -1,9 +1,8 @@
-import { Image } from 'expo-image';
-import { router } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 
 import { FormAlert } from '@/components/auth/FormAlert';
+import { PortfolioImage } from '@/components/pro/PortfolioImage';
 import { Avatar } from '@/components/ui/Avatar';
 import { Badge } from '@/components/ui/Badge';
 import { ErrorState } from '@/components/ui/ErrorState';
@@ -20,6 +19,7 @@ import { categoryIcon } from '@/features/categories/categoryIcons';
 import { useMyProfile } from '@/features/profile/useProfile';
 import { useDirection } from '@/hooks/useDirection';
 import { colors, radius, shadows, spacing } from '@/theme';
+import { BACK_FALLBACK, safeBack } from '@/lib/navigation';
 
 /**
  * Aperçu du profil tel qu'un client le verra (lecture seule). Seules les informations publiques
@@ -32,7 +32,9 @@ export default function ProPreviewScreen() {
     <Screen
       scroll
       edges={['top', 'bottom', 'left', 'right']}
-      header={<ScreenHeader title={t('pro.preview.title')} onBack={() => router.back()} />}
+      header={
+        <ScreenHeader title={t('pro.preview.title')} onBack={() => safeBack(BACK_FALLBACK.pro)} />
+      }
       contentStyle={styles.content}
     >
       {pro.isPending ? (
@@ -40,13 +42,13 @@ export default function ProPreviewScreen() {
       ) : pro.isError || !pro.data ? (
         <ErrorState title={t('space.artisan.loadError')} onRetry={() => void pro.refetch()} />
       ) : (
-        <PublicProfile profile={pro.data} />
+        <PublicProfile profile={pro.data} refresh={() => pro.refetch()} />
       )}
     </Screen>
   );
 }
 
-function PublicProfile({ profile }: { profile: ProProfile }) {
+function PublicProfile({ profile, refresh }: { profile: ProProfile; refresh: () => unknown }) {
   const { t } = useTranslation();
   const { locale } = useDirection();
   const me = useMyProfile();
@@ -55,7 +57,7 @@ function PublicProfile({ profile }: { profile: ProProfile }) {
   const primary = profile.services.find((s) => s.categoryId === profile.primaryCategoryId);
   const secondary = profile.services.filter((s) => s.categoryId !== profile.primaryCategoryId);
   const zones = groupZonesByWilaya(profile.zones, locale);
-  const photos = profile.portfolio.filter((p) => p.imageUrl);
+  const photos = profile.portfolio.filter((p) => p.imagePath);
   const verified = profile.verificationStatus === 'VERIFIED';
 
   return (
@@ -156,10 +158,11 @@ function PublicProfile({ profile }: { profile: ProProfile }) {
           <View style={styles.grid}>
             {photos.map((p) => (
               <View key={p.id} style={styles.tile}>
-                <Image
-                  source={{ uri: p.imageUrl ?? undefined }}
+                <PortfolioImage
+                  url={p.imageUrl}
+                  path={p.imagePath}
                   style={styles.image}
-                  contentFit="cover"
+                  onExpired={() => void refresh()}
                 />
                 {p.caption ? (
                   <Text variant="caption" color="textSecondary" numberOfLines={2}>

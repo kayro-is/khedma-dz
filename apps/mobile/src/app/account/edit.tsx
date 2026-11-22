@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { router, usePreventRemove } from 'expo-router';
+import { usePreventRemove } from 'expo-router';
 import { useMemo, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -35,6 +35,7 @@ import { useDirection } from '@/hooks/useDirection';
 import { sortByLabel } from '@/lib/searchRank';
 import { toast } from '@/store/toastStore';
 import { colors, radius, spacing } from '@/theme';
+import { BACK_FALLBACK, safeBack } from '@/lib/navigation';
 
 export default function EditProfileScreen() {
   const { t } = useTranslation();
@@ -44,7 +45,12 @@ export default function EditProfileScreen() {
     <Screen
       scroll
       edges={['top', 'bottom', 'left', 'right']}
-      header={<ScreenHeader title={t('profile.editScreen.title')} onBack={() => router.back()} />}
+      header={
+        <ScreenHeader
+          title={t('profile.editScreen.title')}
+          onBack={() => safeBack(BACK_FALLBACK.entry)}
+        />
+      }
     >
       {profile.isPending ? (
         <LoadingSkeleton count={3} />
@@ -122,7 +128,7 @@ function EditProfileForm({ profile }: { profile: MyProfile }) {
     try {
       await update.mutateAsync(values);
       toast.success(t('profile.editScreen.saved'));
-      leaveThen(() => router.back());
+      leaveThen(() => safeBack(BACK_FALLBACK.entry));
     } catch (error) {
       setServerError(profileErrorKey(error));
     }

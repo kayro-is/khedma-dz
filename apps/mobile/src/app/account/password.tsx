@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { router } from 'expo-router';
+
 import { useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -19,6 +19,7 @@ import { useAuth } from '@/features/auth/AuthProvider';
 import { changeMyPassword } from '@/features/profile/profileApi';
 import { toast } from '@/store/toastStore';
 import { spacing } from '@/theme';
+import { BACK_FALLBACK, safeBack } from '@/lib/navigation';
 
 export default function ChangePasswordScreen() {
   const { t } = useTranslation();
@@ -39,7 +40,7 @@ export default function ChangePasswordScreen() {
     try {
       await changeMyPassword(session?.user.email ?? '', values.currentPassword, values.newPassword);
       toast.success(t('profile.passwordScreen.success'));
-      router.back();
+      safeBack(BACK_FALLBACK.entry);
     } catch (error) {
       const key = authErrorKey(error);
       setServerError(key === 'invalidCredentials' ? 'wrongCurrentPassword' : key);
@@ -51,7 +52,10 @@ export default function ChangePasswordScreen() {
       scroll
       edges={['top', 'bottom', 'left', 'right']}
       header={
-        <ScreenHeader title={t('profile.passwordScreen.title')} onBack={() => router.back()} />
+        <ScreenHeader
+          title={t('profile.passwordScreen.title')}
+          onBack={() => safeBack(BACK_FALLBACK.entry)}
+        />
       }
       contentStyle={styles.content}
     >

@@ -69,14 +69,34 @@ vi.mock('@/services/supabase', () => ({
           calls.push({ table: `storage:${bucket}`, op: 'remove', payload: paths, filters: [] });
           return { data: [], error: null };
         },
-        getPublicUrl: (path: string) => ({ data: { publicUrl: `https://test/${path}` } }),
+        createSignedUrls: async (paths: string[], expiresIn: number) => {
+          calls.push({
+            table: `storage:${bucket}`,
+            op: 'sign',
+            payload: { paths, expiresIn },
+            filters: [],
+          });
+          // Le serveur refuse l'accès aux chemins qu'il n'autorise pas (ici : « interdit »).
+          return {
+            data: paths.map((path) =>
+              path.includes('interdit')
+                ? {
+                    path,
+                    signedUrl: '',
+                    error: 'Either the object does not exist or you do not have access to it',
+                  }
+                : { path, signedUrl: `https://test/sign/${path}?token=t`, error: null },
+            ),
+            error: null,
+          };
+        },
       }),
     },
   },
 }));
 
 const api = await import('./proProfileApi');
-const { fitWithin } = await import('./proProfileLogic');
+const { fitWithin, signedUrlRefresh } = await import('./proProfileLogic');
 
 const USER = '11111111-1111-4111-8111-111111111111';
 const JPEG = base64ToBytes(
@@ -244,5 +264,35 @@ describe('fitWithin (redimensionnement des photos de réalisation)', () => {
     [800, 600, { width: 800, height: 600 }],
   ])('%i×%i → %j', (w, h, expected) => {
     expect(fitWithin(w, h)).toEqual(expected);
+  });
+});
+
+describe('URL signées (bucket portfolio privé)', () => {
+  it('signe tous les chemins en un seul appel, avec une durée courte', async () => {
+    const urls = await api.signPortfolioPaths([`${USER}/a/1.jpg`, `${USER}/b/2.jpg`]);
+    expect(calls).toHaveLength(1);
+    expect(calls[0]?.payload).toEqual({
+      paths: [`${USER}/a/1.jpg`, `${USER}/b/2.jpg`],
+      expiresIn: api.PORTFOLIO_SIGNED_URL_TTL_SECONDS,
+    });
+    expect(api.PORTFOLIO_SIGNED_URL_TTL_SECONDS).toBeLessThanOrEqual(900);
+    expect(urls.get(`${USER}/a/1.jpg`)).toContain('token=');
+  });
+
+  it('un chemin refusé par le serveur n’obtient aucune URL', async () => {
+    const urls = await api.signPortfolioPaths(['autre/interdit/1.jpg', `${USER}/a/1.jpg`]);
+    expect(urls.has('autre/interdit/1.jpg')).toBe(false);
+    expect(urls.size).toBe(1);
+  });
+
+  it('aucun appel réseau sans photo', async () => {
+    expect((await api.signPortfolioPaths([])).size).toBe(0);
+    expect(calls).toEqual([]);
+  });
+
+  it('renouvellement avant expiration : périmé à 40 %, rechargé à 75 % de la durée de vie', () => {
+    expect(signedUrlRefresh(600)).toEqual({ staleTime: 240_000, refetchInterval: 450_000 });
+    const { refetchInterval } = signedUrlRefresh(api.PORTFOLIO_SIGNED_URL_TTL_SECONDS);
+    expect(refetchInterval).toBeLessThan(api.PORTFOLIO_SIGNED_URL_TTL_SECONDS * 1000);
   });
 });

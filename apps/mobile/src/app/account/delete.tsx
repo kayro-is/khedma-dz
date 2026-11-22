@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { router } from 'expo-router';
+
 import { useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -20,6 +20,7 @@ import { clearSpacePreference } from '@/features/space/SpaceProvider';
 import { profileErrorKey, type ProfileErrorKey } from '@/features/profile/profileErrors';
 import { toast } from '@/store/toastStore';
 import { colors, radius, spacing, type ColorToken } from '@/theme';
+import { BACK_FALLBACK, safeBack } from '@/lib/navigation';
 
 function Bullet({ icon, color, text }: { icon: IconName; color: ColorToken; text: string }) {
   return (
@@ -64,7 +65,12 @@ export default function DeleteAccountScreen() {
     <Screen
       scroll
       edges={['top', 'bottom', 'left', 'right']}
-      header={<ScreenHeader title={t('profile.deleteScreen.title')} onBack={() => router.back()} />}
+      header={
+        <ScreenHeader
+          title={t('profile.deleteScreen.title')}
+          onBack={() => safeBack(BACK_FALLBACK.entry)}
+        />
+      }
       contentStyle={styles.content}
     >
       <FormAlert message={t('profile.deleteScreen.intro')} />
@@ -116,7 +122,12 @@ export default function DeleteAccountScreen() {
         loading={formState.isSubmitting}
         onPress={() => void onSubmit()}
       />
-      <Button label={t('common.cancel')} variant="ghost" fullWidth onPress={() => router.back()} />
+      <Button
+        label={t('common.cancel')}
+        variant="ghost"
+        fullWidth
+        onPress={() => safeBack(BACK_FALLBACK.entry)}
+      />
     </Screen>
   );
 }

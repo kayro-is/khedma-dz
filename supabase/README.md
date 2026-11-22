@@ -78,3 +78,21 @@ Mot de passe commun : `Khedma2026!`
 | `yacine@khedma.test`  | Artisan électricien (Bir El Djir)          |
 | `sofiane@khedma.test` | Particulier **et** artisan peintre (Kouba) |
 | `admin@khedma.test`   | Administrateur                             |
+
+## Confidentialité des photos de réalisations (KHD-008-SEC)
+
+Le bucket `portfolio` est **privé**. Une photo n'est accessible que par une **URL signée de 10 minutes**,
+que Supabase Storage ne délivre qu'aux personnes autorisées (politique « portfolio: lecture des réalisations autorisées ») :
+
+| Demandeur                                    | Profil en brouillon | Profil publié (compte actif) |
+| -------------------------------------------- | ------------------- | ---------------------------- |
+| L'artisan lui-même                           | oui                 | oui                          |
+| Autre utilisateur connecté (client, artisan) | non                 | oui                          |
+| Visiteur non connecté                        | non                 | non                          |
+
+- Les URL signées ne sont **jamais enregistrées en base** : l'application les redemande et les renouvelle avant expiration.
+- **Limite assumée** : une URL déjà délivrée reste utilisable **jusqu'à son expiration** (10 minutes au plus).
+  Dépublier un profil empêche toute nouvelle URL ; il ne révoque pas instantanément celles déjà émises.
+  Une image déjà affichée peut aussi rester dans le cache de l'appareil qui l'a consultée.
+- Écriture inchangée : dépôt et suppression uniquement dans son propre dossier, par un artisan.
+- Retour arrière documenté : `rollback/20261123090000_portfolio_private_bucket.down.sql` (manuel, sur décision explicite).

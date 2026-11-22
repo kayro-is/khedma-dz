@@ -12,6 +12,7 @@ import { Screen } from '@/components/ui/Screen';
 import { Text } from '@/components/ui/Text';
 import { useAuth } from '@/features/auth/AuthProvider';
 import { resolveEntryRoute } from '@/features/auth/authState';
+import { isJustConfirmed } from '@/features/auth/pendingConfirmation';
 import { useSpace } from '@/features/space/SpaceProvider';
 import { SPACE_HOME } from '@/features/space/spaceState';
 import { hasChosenLocale } from '@/i18n';
@@ -40,6 +41,8 @@ export default function WelcomeScreen() {
     passwordRecovery,
   });
   if (target === 'space') {
+    // Confirmation d'adresse tout juste établie par Supabase : message de réussite d'abord.
+    if (isJustConfirmed()) return <Redirect href="/email-confirmed" />;
     if (resolution.kind === 'ready') return <Redirect href={SPACE_HOME[resolution.space]} />;
     return <SpaceGate kind={resolution.kind} />;
   }
